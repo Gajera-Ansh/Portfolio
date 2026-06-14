@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Full Stack Developer</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loader -->
+    <div id="loader">
+        <div class="loader-line"></div>
+    </div>
+
+    <!-- Background Video (must be OUTSIDE content-container for backdrop-filter to work) -->
+    <div class="video-container">
+        <video id="bg-video" src="video.mp4" muted loop preload="auto" playsinline></video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Desktop Sidebar Navigation -->
+    <nav class="sidebar">
+        <ul class="nav-links">
+            <li><a href="#home" data-section="home" class="active">Home</a></li>
+            <li><a href="#about" data-section="about">About</a></li>
+            <li><a href="#skills" data-section="skills">Skills</a></li>
+            <li><a href="#projects" data-section="projects">Projects</a></li>
+            <li><a href="#contact" data-section="contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content Sections -->
+    <main class="content-container">
+        <section id="home" class="scroll-section">
+            <!-- Background Layered Text -->
+            <div class="home-bg-text">ENGINEER</div>
+            
+            <div class="custom-layout home-layout">
+                <div class="home-left">
+                    <div class="home-status-pill">
+                        <span class="status-dot"></span> Available for Work
+                    </div>
+                    <h1 class="home-name">John<br>Doe.</h1>
+                    <p class="home-title">Full Stack Engineer & Designer</p>
+                    <p class="home-bio">Crafting digital experiences with precision,<br>scalability, and artful design.</p>
+                </div>
+                <div class="home-scroll-indicator">
+                    <div class="mouse-scroll">
+                        <div class="mouse-wheel"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="scroll-section">
+            <div class="custom-layout split-layout">
+                <div class="split-left">
+                    <div class="section-number">02 // ABOUT</div>
+                    <h2 class="massive-title">Profile</h2>
+                </div>
+                <div class="split-right glass-panel">
+                    <p class="lead-text">I construct digital experiences that are elegant, scalable, and highly intuitive. I believe in writing code that breathes life into design.</p>
+                    <div class="facts-grid">
+                        <div class="fact-item">
+                            <span class="fact-label">Location</span>
+                            <span class="fact-value">San Francisco</span>
+                        </div>
+                        <div class="fact-item">
+                            <span class="fact-label">Experience</span>
+                            <span class="fact-value">5+ Years</span>
+                        </div>
+                        <div class="fact-item">
+                            <span class="fact-label">Focus</span>
+                            <span class="fact-value">Architecture</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="scroll-section">
+            <div class="custom-layout split-layout">
+                <div class="split-left">
+                    <div class="section-number">03 // SKILLS</div>
+                    <h2 class="massive-title">Stack</h2>
+                </div>
+                <div class="split-right glass-panel">
+                    <div class="skills-cluster">
+                        <span class="skill-tag">React & Next.js</span>
+                        <span class="skill-tag">Python Arch</span>
+                        <span class="skill-tag">Node.js Ecosystem</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">TailwindCSS</span>
+                        <span class="skill-tag">GSAP</span>
+                        <span class="skill-tag">WebGL / Canvas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="scroll-section">
+            <div class="custom-layout split-layout">
+                <div class="split-left">
+                    <div class="section-number">04 // WORK</div>
+                    <h2 class="massive-title">Projects</h2>
+                </div>
+                <div class="split-right projects-grid">
+                    <div class="project-card intricate-card">
+                        <div class="card-top-bar">
+                            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        </div>
+                        <div class="card-content">
+                            <h3>E-Commerce Platform</h3>
+                            <p>A high-performance headless commerce solution built with Next.js and Shopify Storefront API.</p>
+                            <div class="project-tech">React / Next.js / GraphQL</div>
+                            <a href="#" class="project-link">Explore &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="project-card intricate-card">
+                        <div class="card-top-bar">
+                            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        </div>
+                        <div class="card-content">
+                            <h3>SaaS Dashboard</h3>
+                            <p>Real-time analytics dashboard with dynamic charting and complex state management.</p>
+                            <div class="project-tech">React / Redux / Node.js</div>
+                            <a href="#" class="project-link">Explore &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="project-card intricate-card">
+                        <div class="card-top-bar">
+                            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        </div>
+                        <div class="card-content">
+                            <h3>AI Image Generator</h3>
+                            <p>A responsive web app that interfaces with Stable Diffusion to generate assets on the fly.</p>
+                            <div class="project-tech">Python / FastAPI / WebGL</div>
+                            <a href="#" class="project-link">Explore &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="project-card intricate-card">
+                        <div class="card-top-bar">
+                            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Mobile Fintech App</h3>
+                            <p>Cross-platform application for tracking crypto assets with secure biometric authentication.</p>
+                            <div class="project-tech">React Native / Expo / Firebase</div>
+                            <a href="#" class="project-link">Explore &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="scroll-section">
+            <div class="custom-layout centered-layout">
+                <div class="section-number">05 // CONNECT</div>
+                <h2 class="massive-title">Let's Talk.</h2>
+                <div class="contact-links glass-panel">
+                    <a href="mailto:hello@example.com" class="cta-button">hello@example.com</a>
+                    <div class="social-row">
+                        <a href="#" class="social-link">GitHub</a>
+                        <span class="separator">/</span>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <span class="separator">/</span>
+                        <a href="#" class="social-link">Twitter</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Mobile Bottom Tab Navigation -->
+    <nav class="bottom-nav">
+        <a href="#home" data-section="home" class="active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Home</span>
+        </a>
+        <a href="#about" data-section="about">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>About</span>
+        </a>
+        <a href="#skills" data-section="skills">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <span>Skills</span>
+        </a>
+        <a href="#projects" data-section="projects">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            <span>Work</span>
+        </a>
+        <a href="#contact" data-section="contact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Contact</span>
+        </a>
+    </nav>
+
+    <!-- Bottom Progress Bar -->
+    <div class="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
