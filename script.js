@@ -13,6 +13,129 @@ document.addEventListener('DOMContentLoaded', () => {
         contact: document.getElementById('contact'),
     };
 
+    // Hero Role Cycling Animation
+    const roleWords = document.querySelectorAll('.hero-role-word');
+    if (roleWords.length > 0) {
+        let currentRole = 0;
+        setInterval(() => {
+            roleWords[currentRole].classList.remove('active');
+            currentRole = (currentRole + 1) % roleWords.length;
+            roleWords[currentRole].classList.add('active');
+        }, 2500);
+    }
+
+    // Custom Water Drop Cursor Tracking
+    const cursor = document.querySelector('.water-drop-cursor');
+    if (cursor) {
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
+        let targetSize = 30; // Increased default normal size
+        let currentSize = 30;
+        const sizeSpeed = 0.15; // Smooth size changes
+        const speed = 0.15;     // Lag speed for follow effect
+
+        let cursorScale = { value: 1 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            // Reveal cursor on first mouse move
+            cursor.style.opacity = 1;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = 0;
+        });
+
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = 1;
+        });
+
+        // Loop to interpolate cursor position & size (adds water-like inertia)
+        function animateCursor() {
+            const dx = mouseX - cursorX;
+            const dy = mouseY - cursorY;
+            
+            cursorX += dx * speed;
+            cursorY += dy * speed;
+            
+            // Interpolate current size to target size
+            currentSize += (targetSize - currentSize) * sizeSpeed;
+            cursor.style.width = `${currentSize}px`;
+            cursor.style.height = `${currentSize}px`;
+
+            // Calculate base transform positioning (keeps it a perfect circle with dynamic scale)
+            cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%) scale(${cursorScale.value})`;
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Add hovering state for interactive elements
+        function addHoverListeners() {
+            // Buttons, links, CTA, social links
+            const buttons = document.querySelectorAll('a, button, .cta-button, .social-link, .project-link');
+            buttons.forEach(btn => {
+                btn.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hovering');
+                    targetSize = 50; // Increased button hover size
+                });
+                btn.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hovering');
+                    targetSize = 30; // Back to default normal size
+                });
+                
+                // Elastic bounce animations on click
+                btn.addEventListener('click', () => {
+                    // Bounce the button itself
+                    gsap.fromTo(btn, 
+                        { scale: 0.92 }, 
+                        { scale: 1, duration: 0.5, ease: "elastic.out(1.2, 0.4)", clearProps: "scale" }
+                    );
+
+                    // Bounce the cursor scale (expand -> elastic settle)
+                    gsap.fromTo(cursorScale, 
+                        { value: 0.4 }, 
+                        { value: 1, duration: 0.6, ease: "elastic.out(1.4, 0.3)" }
+                    );
+                });
+            });
+
+            // Standard layout cards or tags (moderate hover size)
+            const tagsAndCards = document.querySelectorAll('.project-card, .skill-tag');
+            tagsAndCards.forEach(target => {
+                // Ignore if it's already a button/link child
+                if (target.closest('a') || target.closest('button')) return;
+
+                target.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hovering');
+                    targetSize = 40; // Increased card hover size
+                });
+                target.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hovering');
+                    targetSize = 30;
+                });
+            });
+        }
+        addHoverListeners();
+
+        // Mouse click squish (standard click on document body)
+        window.addEventListener('mousedown', (e) => {
+            // If we clicked a button, the button's specific elastic bounce will handle it
+            if (e.target.closest('a') || e.target.closest('button')) return;
+
+            gsap.to(cursorScale, { value: 0.6, duration: 0.1 });
+        });
+        window.addEventListener('mouseup', (e) => {
+            if (e.target.closest('a') || e.target.closest('button')) return;
+
+            gsap.to(cursorScale, { value: 1, duration: 0.2, ease: "power2.out" });
+        });
+    }
+
     // Configuration for section fade points based on scroll percentage (0.0 to 1.0)
     // Format: [fadeInStart, activeStart, activeEnd, fadeOutEnd]
     const ranges = {
@@ -228,17 +351,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     if (targetOpacity === 1) {
                         gsap.set(section, { 
-                            clearProps: "opacity", 
-                            y: targetY,
-                            visibility: 'visible',
-                            force3D: true
+                            clearProps: "opacity,transform", 
+                            visibility: 'visible'
                         });
                     } else {
                         gsap.set(section, { 
                             opacity: targetOpacity, 
                             y: targetY,
-                            visibility: targetOpacity > 0 ? 'visible' : 'hidden',
-                            force3D: true
+                            visibility: targetOpacity > 0 ? 'visible' : 'hidden'
                         });
                     }
                 }

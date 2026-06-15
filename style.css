@@ -114,8 +114,6 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(30px);
-  will-change: transform, opacity;
 }
 
 .scroll-section.is-active {
@@ -186,6 +184,12 @@ h1, h2, h3, h4, h5, h6 {
 /* Home */
 .home-layout {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 80px 0 40px;
 }
 
 .home-bg-text {
@@ -196,29 +200,42 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 18vw;
   font-weight: 800;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12);
   z-index: -1;
   pointer-events: none;
   white-space: nowrap;
   letter-spacing: 0.05em;
-  opacity: 0.6;
+  opacity: 0.5;
+}
+
+/* Hero Center Content */
+.hero-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
 }
 
 .home-status-pill {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--heading);
-  margin-bottom: 30px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .status-dot {
@@ -246,51 +263,155 @@ h1, h2, h3, h4, h5, h6 {
   100% { transform: scale(2); opacity: 0; }
 }
 
-.home-name {
-  font-size: 5.5rem;
+/* Hero Name */
+.hero-name {
+  font-size: clamp(4rem, 12vw, 9rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  margin-bottom: 5px;
-  background: linear-gradient(135deg, var(--heading) 0%, #888 100%);
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  margin-bottom: 36px;
+  color: var(--heading);
+}
+
+.hero-name-accent {
+  background: linear-gradient(135deg, var(--heading) 0%, #666 50%, #999 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  line-height: 1.1;
+  background-clip: text;
 }
 
-.home-title {
-  font-size: 1.1rem;
-  font-weight: 400;
+/* Animated Role Cycling */
+.hero-role-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.hero-role-label {
+  display: inline-block;
+  padding: 10px 28px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+  color: var(--heading);
   text-transform: uppercase;
-  letter-spacing: 5px;
-  margin-bottom: 25px;
-  color: #666;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-.home-bio {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: #555;
-  font-weight: 300;
-  max-width: 500px;
+.hero-role-cycle {
+  position: relative;
+  height: 1.5em;
+  overflow: hidden;
+}
+
+.hero-role-word {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #666;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: lowercase;
+  font-style: italic;
+}
+
+.hero-role-word.active {
+  position: relative;
+  left: auto;
+  transform: translateX(0) translateY(0);
+  opacity: 1;
+  text-align: center;
+}
+
+/* Hero Bottom Glass Bar */
+.hero-bottom-bar {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hero-stat-number {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--heading);
+  letter-spacing: -0.02em;
+}
+
+.hero-stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #888;
+  font-weight: 500;
+}
+
+.hero-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.hero-scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.scroll-text {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #888;
+  font-weight: 600;
 }
 
 /* Mouse Scroll Indicator */
 .mouse-scroll {
-  width: 30px;
-  height: 50px;
+  width: 24px;
+  height: 40px;
   border: 2px solid var(--heading);
   border-radius: 20px;
   position: relative;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .mouse-wheel {
-  width: 4px;
-  height: 8px;
+  width: 3px;
+  height: 7px;
   background-color: var(--heading);
   border-radius: 4px;
   position: absolute;
-  top: 8px;
+  top: 7px;
   left: 50%;
   transform: translateX(-50%);
   animation: scroll-wheel 2s infinite cubic-bezier(0.16, 1, 0.3, 1);
@@ -298,7 +419,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @keyframes scroll-wheel {
   0% { transform: translate(-50%, 0); opacity: 1; }
-  100% { transform: translate(-50%, 15px); opacity: 0; }
+  100% { transform: translate(-50%, 12px); opacity: 0; }
 }
 
 /* About Facts */
@@ -428,6 +549,12 @@ h1, h2, h3, h4, h5, h6 {
   font-family: monospace;
 }
 
+.project-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
 .project-link {
   text-decoration: none;
   color: var(--heading);
@@ -435,6 +562,11 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.95rem;
   border-bottom: 1px solid var(--heading);
   padding-bottom: 2px;
+  transition: opacity 0.3s ease, border-color 0.3s ease;
+}
+
+.project-link:hover {
+  opacity: 0.7;
 }
 
 /* Contact Section */
@@ -644,7 +776,93 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 3.5rem;
   }
   
-  .home-name {
-    font-size: 3.5rem;
+  .hero-name {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  .hero-bottom-bar {
+    gap: 16px;
+    padding: 16px 24px;
+    border-radius: 30px;
+    margin-bottom: 100px;
+  }
+
+  .hero-stat-number {
+    font-size: 1.1rem;
+  }
+
+  .hero-stat-label {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+  }
+
+  .hero-divider {
+    height: 28px;
+  }
+
+  .hero-role-wrapper {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* Custom 3D Water Drop Cursor */
+.water-drop-cursor {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    inset 1px 1px 3px rgba(255, 255, 255, 0.45),
+    inset -1px -1px 3px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(4px) saturate(1.2);
+  -webkit-backdrop-filter: blur(4px) saturate(1.2);
+  transition: background 0.3s ease, 
+              border-color 0.3s ease;
+  will-change: transform, width, height;
+  opacity: 0; /* Hidden initially until mouse moves */
+}
+
+/* Water drop highlight reflection */
+.water-drop-cursor::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 25%;
+  height: 25%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  filter: blur(0.5px);
+  transition: transform 0.2s ease;
+}
+
+.water-drop-cursor.hovering {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    inset 2px 2px 4px rgba(255, 255, 255, 0.65),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.1),
+    0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* Hide default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+  body, 
+  a, 
+  button, 
+  .project-card, 
+  .skill-tag, 
+  .cta-button, 
+  .social-link {
+    cursor: none;
   }
 }
