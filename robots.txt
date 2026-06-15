@@ -1,0 +1,8 @@
+# User-agent configuration for web crawlers
+# Allow all search engine bots to crawl the entire website
+User-agent: *
+Allow: /
+
+# Link to the website's sitemap.xml
+# Note: If your site is hosted at a different URL, update this link to point to your domain's sitemap.xml
+Sitemap: https://portfolio-jet-one-36.vercel.app/sitemap.xml
