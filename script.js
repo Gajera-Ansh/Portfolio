@@ -147,14 +147,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let currentProgress = 0;
-    let lastRenderedProgress = -1;
+    let lastRenderedProgress = 0; // Initialize to 0 so render doesn't force run until loaded
     let isVideoLoaded = false;
+    let isAppLoaded = false;
     let currentActive = null;
 
     // Set initial GSAP states
     Object.values(sections).forEach(section => {
         gsap.set(section, { opacity: 0, y: 30, visibility: 'hidden' });
     });
+    // Hide navigational elements initially during loader
+    gsap.set(['.sidebar', '.bottom-nav', '.progress-bar-container'], { opacity: 0 });
 
     // Handle loader dismissal when video can play
     video.addEventListener('canplaythrough', () => {
@@ -166,8 +169,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 ease: 'power2.out',
                 onComplete: () => {
                     loader.style.display = 'none';
-                    // Trigger a forced UI update on load
-                    lastRenderedProgress = -1; 
+                    isAppLoaded = true;
+                    
+                    if (window.scrollY === 0) {
+                        // Clean fade-in for Home and Navs at scroll 0
+                        const homeSection = sections['home'];
+                        gsap.set(homeSection, { visibility: 'visible' });
+                        gsap.fromTo(homeSection, 
+                            { opacity: 0, y: 40 }, 
+                            { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }
+                        );
+                        
+                        gsap.to(['.sidebar', '.bottom-nav', '.progress-bar-container'], {
+                            opacity: 1,
+                            duration: 1,
+                            ease: 'power2.out'
+                        });
+                        
+                        lastRenderedProgress = 0;
+                    } else {
+                        // User has already scrolled, show navs instantly and render correct section
+                        gsap.set(['.sidebar', '.bottom-nav', '.progress-bar-container'], { opacity: 1 });
+                        lastRenderedProgress = -1; // force render immediate scroll position
+                    }
                 } 
             });
         }
@@ -264,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // 2. Only update UI if scroll progress has changed
-        if (lastRenderedProgress !== currentProgress) {
+        if (isAppLoaded && lastRenderedProgress !== currentProgress) {
             
             // Update progress bar
             progressBar.style.width = `${currentProgress * 100}%`;
@@ -393,6 +417,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         requestAnimationFrame(render);
+    }
+
+    // Copy Email to Clipboard Functionality
+    const copyBtn = document.querySelector('.copy-email-btn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering outer events
+            const email = copyBtn.getAttribute('data-email');
+            navigator.clipboard.writeText(email).then(() => {
+                const tooltip = copyBtn.querySelector('.tooltip-text');
+                if (tooltip) {
+                    tooltip.textContent = 'Copied!';
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        tooltip.textContent = 'Copy Email';
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                }
+            }).catch(err => {
+                console.error('Failed to copy email: ', err);
+            });
+        });
     }
 
     // Handle Navigation Clicks

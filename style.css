@@ -59,7 +59,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .loader-line::after {
   content: '';
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 40%;
@@ -578,52 +578,125 @@ h1, h2, h3, h4, h5, h6 {
   gap: 30px;
 }
 
-.contact-links {
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 20px;
+}
+
+.contact-card {
   display: flex;
   flex-direction: column;
-  gap: 30px;
   align-items: center;
-  width: 100%;
-  max-width: 600px;
-}
-
-.cta-button {
-  display: inline-block;
-  padding: 16px 36px;
-  background: linear-gradient(135deg, var(--heading), #444);
-  color: #fff;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-}
-
-.social-row {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.separator {
-  color: #ccc;
-}
-
-.social-link {
+  text-align: center;
+  padding: 36px 14px;
   text-decoration: none;
   color: var(--heading);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.contact-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--heading);
+  transition: transform 0.4s ease;
+}
+
+.contact-card:hover .contact-icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.contact-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.contact-value {
+  font-size: 1.05rem;
   font-weight: 600;
+  color: var(--heading);
+  margin-bottom: 20px;
+  text-decoration: none;
+  white-space: nowrap;   /* never wrap on desktop */
+}
+
+.contact-action {
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.7;
+  border-bottom: 1px dashed var(--heading);
+  padding-bottom: 2px;
   transition: opacity 0.3s ease;
 }
 
-.social-link:hover {
-  opacity: 0.6;
+.contact-card:hover .contact-action {
+  opacity: 1;
+}
+
+/* Copy Email Button */
+.copy-email-btn {
+  position: relative;
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--heading);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.copy-email-btn:hover {
+  background: var(--heading);
+  color: #fff;
+  border-color: var(--heading);
+}
+
+.copy-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Tooltip */
+.copy-email-btn .tooltip-text {
+  visibility: hidden;
+  width: 90px;
+  background-color: var(--heading);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 10;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.75rem;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.copy-email-btn:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
 }
 
 /* Desktop Navigation Pill */
@@ -757,53 +830,415 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 767px) {
+
+  /* ─── GLOBAL MOBILE RESETS ─────────────────────────────────────────────── */
+
   .sidebar { display: none; }
-  
+
   .custom-layout {
-    padding: 20px;
+    padding: 0 18px;
+    width: 100%;
+    max-width: 100%;
   }
-  
+
   .split-layout {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 0;
   }
-  
-  .projects-grid {
-    grid-template-columns: 1fr;
+
+  .glass-panel {
+    padding: 22px 18px;
   }
-  
+
+  .lead-text {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+
+  /* Shared section label + title sizing */
+  .section-number {
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+
   .massive-title {
-    font-size: 3.5rem;
+    font-size: clamp(2.6rem, 10vw, 3.2rem);
+    line-height: 1;
+    margin-bottom: 0;
+    text-align: center;
   }
-  
+
+  /* ─── HOME ─────────────────────────────────────────────────────────────── */
+
+  .home-layout {
+    padding: 40px 0 20px;
+  }
+
   .hero-name {
-    font-size: clamp(3rem, 15vw, 5rem);
-  }
-
-  .hero-bottom-bar {
-    gap: 16px;
-    padding: 16px 24px;
-    border-radius: 30px;
-    margin-bottom: 100px;
-  }
-
-  .hero-stat-number {
-    font-size: 1.1rem;
-  }
-
-  .hero-stat-label {
-    font-size: 0.6rem;
-    letter-spacing: 1px;
-  }
-
-  .hero-divider {
-    height: 28px;
+    font-size: clamp(2.9rem, 13vw, 4.5rem);
+    margin-bottom: 38px;    /* ↑ gap: name → role pill */
   }
 
   .hero-role-wrapper {
     flex-direction: column;
-    gap: 4px;
+    gap: 20px;              /* ↑ gap: role pill → cycling word */
   }
+
+  .hero-role-label {
+    padding: 12px 28px;     /* slightly taller pill */
+  }
+
+  .hero-scroll-hint {
+    transform: scale(0.85);
+    padding-bottom: 10px;
+    margin-top: 38px;       /* ↑ gap: role block → scroll indicator */
+  }
+
+  /* ─── ABOUT ─────────────────────────────────────────────────────────────── */
+
+  /* split-left acts as a title block on mobile for about/skills */
+  .split-left {
+    text-align: center;
+    width: 100%;
+    padding: 0 18px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .facts-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    text-align: center;
+  }
+
+  /* ─── SKILLS ────────────────────────────────────────────────────────────── */
+
+  .skills-cluster {
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .skill-tag {
+    padding: 8px 18px;
+    font-size: 0.8rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+   * PROJECTS & CONTACT — mobile card scroll with fade overlay
+   *
+   * KEY INSIGHT: mask-image on a scroll container kills backdrop-filter on
+   * its children (browser stacking context limitation). So we do NOT use
+   * mask-image on the scroll containers. Instead, we paint the fade effect
+   * using pointer-events:none pseudo-elements on the PARENT that sit above
+   * the scroll layer. The scroll container stays clean — backdrop-filter
+   * on cards works perfectly.
+   *
+   * Structure per section:
+   *   .custom-layout / .centered-layout  →  position:relative root
+   *     .split-left / .section-number + .massive-title  →  absolute, z-index 20 (title)
+   *     .projects-grid / .contact-grid   →  absolute, fills full height, z-index 1
+   *     ::before  →  top fade overlay, z-index 15 (above cards, below title)
+   *     ::after   →  bottom fade overlay, z-index 15
+   * ═══════════════════════════════════════════════════════════════════════════ */
+
+  /* ─── PROJECTS ─────────────────────────────────────────────────────────── */
+
+  #projects .custom-layout {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    max-width: 100%;
+    overflow: hidden;
+    display: block;
+  }
+
+  /* Top fade: starts early — opaque for title area, long dissolve below */
+  #projects .custom-layout::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 320px;   /* taller so fade starts much earlier */
+    background: linear-gradient(
+      to bottom,
+      rgba(245,245,245,0.97) 0%,
+      rgba(245,245,245,0.97) 38%,     /* stay solid through entire title block */
+      rgba(245,245,245,0.82) 52%,
+      rgba(245,245,245,0.55) 68%,
+      rgba(245,245,245,0.2)  84%,
+      transparent              100%
+    );
+    z-index: 15;
+    pointer-events: none;
+  }
+
+  /* Bottom fade: cards dissolve before the bottom nav */
+  #projects .custom-layout::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(
+      to top,
+      rgba(245,245,245,0.92) 0%,
+      rgba(245,245,245,0.5)  50%,
+      transparent             100%
+    );
+    z-index: 15;
+    pointer-events: none;
+  }
+
+  /* Title: absolutely pinned at top, above both cards and fade overlays */
+  #projects .split-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 48px 20px 10px;
+    background: transparent;
+    pointer-events: none;
+    margin-bottom: 0;
+  }
+
+  #projects .split-left .section-number {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: #666;
+    margin-bottom: 2px;
+    text-align: center;
+  }
+
+  #projects .split-left .massive-title {
+    font-size: clamp(2.8rem, 12vw, 3.6rem);
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  /* Scroll container: full height, NO mask-image (preserves backdrop-filter) */
+  .projects-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    /* padding-top pushes first card below the title + fade zone */
+    padding: 175px 16px 130px;
+    box-sizing: border-box;
+  }
+
+  .projects-grid::-webkit-scrollbar { display: none; }
+
+  /* Card sizing */
+  .project-card {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .project-card:last-child { margin-bottom: 0; }
+
+  .card-content {
+    padding: 16px 18px 20px;
+  }
+
+  .project-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .project-card p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .project-tech {
+    font-size: 0.7rem;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .project-links { gap: 18px; }
+
+  .project-link { font-size: 0.86rem; }
+
+  /* ─── CONTACT ───────────────────────────────────────────────────────────── */
+
+  #contact .custom-layout {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    max-width: 100%;
+    overflow: hidden;
+    display: block;
+  }
+
+  #contact .centered-layout {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  /* Top fade overlay for contact — same technique */
+  #contact .centered-layout::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 320px;
+    background: linear-gradient(
+      to bottom,
+      rgba(245,245,245,0.97) 0%,
+      rgba(245,245,245,0.97) 38%,
+      rgba(245,245,245,0.82) 52%,
+      rgba(245,245,245,0.55) 68%,
+      rgba(245,245,245,0.2)  84%,
+      transparent              100%
+    );
+    z-index: 15;
+    pointer-events: none;
+  }
+
+  /* Bottom fade overlay for contact */
+  #contact .centered-layout::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(
+      to top,
+      rgba(245,245,245,0.92) 0%,
+      rgba(245,245,245,0.5)  50%,
+      transparent             100%
+    );
+    z-index: 15;
+    pointer-events: none;
+  }
+
+  /* Title elements — absolutely pinned, above overlays */
+  #contact .centered-layout > .section-number {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+    margin-bottom: 0;
+  }
+
+  #contact .centered-layout > .massive-title {
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    font-size: clamp(2.6rem, 12vw, 3.6rem);
+    line-height: 1;
+    text-align: center;
+    pointer-events: none;
+    margin-bottom: 0;
+    padding: 0 20px;
+  }
+
+  /* Scroll container — NO mask-image, preserves glass backdrop-filter */
+  .contact-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0;
+    padding: 175px 16px 130px;
+    box-sizing: border-box;
+  }
+
+  .contact-grid::-webkit-scrollbar { display: none; }
+
+  /* Contact card sizing */
+  .contact-card {
+    width: 100%;
+    padding: 22px 18px 20px;
+    box-sizing: border-box;
+    margin-bottom: 14px;
+  }
+
+  .contact-card:last-child { margin-bottom: 0; }
+
+  .contact-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 12px;
+  }
+
+  .contact-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .contact-label {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .contact-value {
+    font-size: 0.88rem;
+    margin-bottom: 14px;
+    word-break: break-all;
+    white-space: normal;   /* override desktop nowrap — allow wrapping on mobile */
+  }
+
+  .contact-action { font-size: 0.8rem; }
+
+  .copy-email-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .copy-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+
 }
 
 /* Custom 3D Water Drop Cursor */
