@@ -1238,7 +1238,9 @@ h1, h2, h3, h4, h5, h6 {
     height: 15px;
   }
 
-
+  .water-drop-cursor {
+    display: none !important;
+  }
 }
 
 /* Custom 3D Water Drop Cursor */
