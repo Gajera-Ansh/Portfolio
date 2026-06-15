@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         inactivityTimeout = setTimeout(() => {
             isAutoPlaying = true;
             video.play();
-        }, 3000); // 3 seconds
+        }, 1000); // 1 second
     }
 
     // Passive scroll listener for performance
